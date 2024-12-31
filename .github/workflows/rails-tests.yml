@@ -1,0 +1,34 @@
+name: Rails Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1 # RailsプロジェクトのRubyバージョンに合わせる
+          bundler-cache: true
+
+      - name: Install dependencies
+        run: bundle install --jobs 4 --retry 3
+
+      - name: Set up database
+        run: |
+          bundle exec rails db:create db:schema:load
+        env:
+          RAILS_ENV: test
+
+      - name: Run tests
+        run: bundle exec rails test
+        env:
+          RAILS_ENV: test
