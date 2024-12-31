@@ -24,6 +24,10 @@ jobs:
           gem install bundler
           bundle install --jobs 4 --retry 3 --path vendor/bundle
 
+      - name: Precompile assets
+        run: |
+          RAILS_ENV=test bundle exec rails assets:precompile
+
       - name: Set up database
         run: |
           bundle exec rails db:create db:schema:load
