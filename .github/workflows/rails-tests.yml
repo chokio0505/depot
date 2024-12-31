@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1 # RailsプロジェクトのRubyバージョンに合わせる
+          ruby-version: 3.1.0 # RailsプロジェクトのRubyバージョンに合わせる
           bundler-cache: true
 
       - name: Install dependencies
